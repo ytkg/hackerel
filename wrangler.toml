@@ -2,6 +2,11 @@ name = "hackerel"
 main = "src/index.ts"
 compatibility_date = "2024-12-08"
 
+[[d1_databases]]
+binding = "DB"
+database_name = "hackerel"
+database_id = "7313cf48-708c-4b14-94d3-8c80debc9bd3"
+
 # compatibility_flags = [ "nodejs_compat" ]
 
 # [vars]

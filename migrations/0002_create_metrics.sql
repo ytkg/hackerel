@@ -1,0 +1,9 @@
+-- Migration number: 0002 	 2024-12-14T07:03:45.194Z
+CREATE TABLE metrics (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    dataset_id TEXT NOT NULL,
+    quantity REAL NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (dataset_id) REFERENCES datasets(id)
+);
