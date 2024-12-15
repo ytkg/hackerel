@@ -2,13 +2,15 @@
   "name": "hackerel",
   "scripts": {
     "dev": "wrangler dev",
-    "deploy": "wrangler deploy --minify"
+    "deploy": "wrangler deploy --minify",
+    "check": "bunx biome check ./src"
   },
   "dependencies": {
     "bcrypt-edge": "^0.1.0",
     "hono": "^4.6.13"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.9.4",
     "@cloudflare/workers-types": "^4.20241112.0",
     "wrangler": "^3.88.0"
   }

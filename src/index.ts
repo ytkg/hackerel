@@ -1,6 +1,6 @@
+import { compareSync, hashSync } from 'bcrypt-edge'
 import { Hono } from 'hono'
 import { bearerAuth } from 'hono/bearer-auth'
-import { hashSync, compareSync } from 'bcrypt-edge'
 
 interface Env {
   DB: D1Database
@@ -15,13 +15,13 @@ app.get('/', (c) => {
 app.post('/datasets', async (c) => {
   const { id, token } = await c.req.json()
 
-  const dataset = await c.env.DB.prepare(`select * from datasets where id = ?`).bind(id).first()
+  const dataset = await c.env.DB.prepare('select * from datasets where id = ?').bind(id).first()
 
   if (dataset) {
     return c.text(`${id} is already`)
   }
 
-  const hashedToken = hashSync(token, 10);
+  const hashedToken = hashSync(token, 10)
 
   await c.env.DB.prepare('insert into datasets(id, token) values (?, ?)').bind(id, hashedToken).run()
 
@@ -45,18 +45,17 @@ app.use(
       const dataset = await c.env.DB.prepare('select * from datasets where id = ?').bind(dataset_id).first()
 
       return dataset && compareSync(token, dataset?.token)
-    }
-  })
+    },
+  }),
 )
 
 app.post('/datasets/:dataset_id/metrics', async (c) => {
-    const { dataset_id } = c.req.param()
-    const { quantity } = await c.req.json()
+  const { dataset_id } = c.req.param()
+  const { quantity } = await c.req.json()
 
-    await c.env.DB.prepare('insert into metrics(dataset_id, quantity) values (?, ?)').bind(dataset_id, quantity).run()
+  await c.env.DB.prepare('insert into metrics(dataset_id, quantity) values (?, ?)').bind(dataset_id, quantity).run()
 
-    return c.text('ok')
-  }
-)
+  return c.text('ok')
+})
 
 export default app
