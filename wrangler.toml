@@ -7,6 +7,10 @@ binding = "DB"
 database_name = "hackerel"
 database_id = "7313cf48-708c-4b14-94d3-8c80debc9bd3"
 
+[observability]
+enabled = true
+head_sampling_rate = 1
+
 # compatibility_flags = [ "nodejs_compat" ]
 
 # [vars]
